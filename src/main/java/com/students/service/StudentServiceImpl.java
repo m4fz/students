@@ -16,14 +16,16 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-
     private final StudentRepo studentRepo;
+
+    // function to get all existing entries
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> getAllStudents() {
         return new ResponseEntity<>(studentRepo.findAll(), HttpStatus.OK);
     }
 
+    // function to get an existing entry by its id
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> findStudentById(Long id) {
@@ -33,6 +35,7 @@ public class StudentServiceImpl implements StudentService {
         return new ResponseEntity<>(studentRepo.findById(id).get(), HttpStatus.NOT_FOUND);
     }
 
+    // function to create a new entry
     @Override
     @Transactional
     public ResponseEntity<?> save(StudentRequest student) {
@@ -44,12 +47,14 @@ public class StudentServiceImpl implements StudentService {
         return new ResponseEntity<>(studentRepo.save(newStudent), HttpStatus.CREATED);
     }
 
+    // function to delete the entire existing entry by id
     @Override
     @Transactional
     public void deleteStudent(Long id) {
         studentRepo.deleteById(id);
     }
 
+    // function to replace an entry entirely
     @Override
     @Transactional
     public ResponseEntity<?> putStudent(Long id, StudentRequest student) {
@@ -62,6 +67,7 @@ public class StudentServiceImpl implements StudentService {
         return new ResponseEntity<>(studentFromDB, HttpStatus.CREATED);
     }
 
+    // function to replace any value of an existing entry
     @Override
     @Transactional
     public ResponseEntity<?> patchStudent(Long id, StudentRequest student) {

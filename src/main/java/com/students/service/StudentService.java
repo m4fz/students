@@ -3,9 +3,7 @@ package com.students.service;
 import com.students.entity.StudentRequest;
 import org.springframework.http.ResponseEntity;
 
-import java.security.PublicKey;
-import java.util.List;
-
+// using an interface to specify future functions that'll be overridden in services implementation
 public interface StudentService {
     ResponseEntity<?> getAllStudents();
     ResponseEntity<?> findStudentById(Long id);

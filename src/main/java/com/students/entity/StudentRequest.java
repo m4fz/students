@@ -6,6 +6,7 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
+//making a DTO object
 public class StudentRequest {
     private String firstName;
     private String lastName;

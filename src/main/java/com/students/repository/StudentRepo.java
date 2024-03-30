@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+// using springs repo functions to get the necessary data from the table, save changes etc.
 @Repository
 public interface StudentRepo extends JpaRepository<Student, Long>{
     List<Student> findAll();
