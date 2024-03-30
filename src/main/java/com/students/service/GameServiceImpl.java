@@ -16,12 +16,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
     private final GameRepo gameRepo;
+
+    // function to get all existing entries
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> getAllGames() {
         return new ResponseEntity<>(gameRepo.findAll(), HttpStatus.OK);
     }
 
+    // function to get an existing entry by its id
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> findGameById(Long id) {
@@ -31,6 +34,7 @@ public class GameServiceImpl implements GameService {
         return new ResponseEntity<>(gameRepo.findById(id).get(), HttpStatus.NOT_FOUND);
     }
 
+    // function to create a new entry
     @Override
     @Transactional
     public ResponseEntity<?> saveGames(GameRequest game) {
@@ -41,12 +45,14 @@ public class GameServiceImpl implements GameService {
         return new ResponseEntity<>(gameRepo.save(newGame), HttpStatus.CREATED);
     }
 
+    // function to delete the entire existing entry by id
     @Override
     @Transactional
     public void deleteGame(Long id) {
         gameRepo.deleteById(id);
     }
 
+    // function to replace an entry entirely
     @Override
     @Transactional
     public ResponseEntity<?> putGame(Long id, GameRequest game) {
@@ -58,6 +64,7 @@ public class GameServiceImpl implements GameService {
         return new ResponseEntity<>(gameFromDB, HttpStatus.CREATED);
     }
 
+    // function to replace any value of an existing entry
     @Override
     @Transactional
     public ResponseEntity<?> patchGame(Long id, GameRequest game) {

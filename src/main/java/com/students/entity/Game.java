@@ -13,7 +13,9 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Entity
 @Table(name = "games")
+// creating a new table with its columns
 public class Game implements Serializable {
+    //specifying the id and making it a primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

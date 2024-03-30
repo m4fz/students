@@ -6,6 +6,7 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
+//making a DTO object
 public class GameRequest {
     private String gameName;
     private Integer rating;
