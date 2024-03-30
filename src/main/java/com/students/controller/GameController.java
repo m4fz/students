@@ -1,6 +1,6 @@
 package com.students.controller;
 
-import com.students.entity.GameRequest;
+import com.students.DTO.GameRequest;
 import com.students.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

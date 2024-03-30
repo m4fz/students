@@ -1,7 +1,7 @@
 package com.students.service;
 
 import com.students.entity.Game;
-import com.students.entity.GameRequest;
+import com.students.DTO.GameRequest;
 import com.students.exceptions.GameNotFoundException;
 import com.students.repository.GameRepo;
 import lombok.RequiredArgsConstructor;

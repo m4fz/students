@@ -1,4 +1,4 @@
-package com.students.entity;
+package com.students.DTO;
 
 import lombok.*;
 

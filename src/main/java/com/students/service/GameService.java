@@ -1,6 +1,6 @@
 package com.students.service;
 
-import com.students.entity.GameRequest;
+import com.students.DTO.GameRequest;
 import org.springframework.http.ResponseEntity;
 
 // using an interface to specify future functions that'll be overridden in services implementation
