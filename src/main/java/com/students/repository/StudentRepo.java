@@ -1,9 +1,7 @@
 package com.students.repository;
 
 import com.students.entity.Student;
-import org.hibernate.annotations.processing.Find;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
