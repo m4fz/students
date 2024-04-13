@@ -5,13 +5,14 @@ import com.students.DTO.GameRequest;
 import com.students.exceptions.GameNotFoundException;
 import com.students.repository.GameRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
@@ -21,6 +22,7 @@ public class GameServiceImpl implements GameService {
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> getAllGames() {
+        log.info("Get all games");
         return new ResponseEntity<>(gameRepo.findAll(), HttpStatus.OK);
     }
 
@@ -28,6 +30,7 @@ public class GameServiceImpl implements GameService {
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> findGameById(Long id) {
+        log.info("Find game by id");
         if (gameRepo.findById(id).isPresent()){
             return new ResponseEntity<>(gameRepo.findById(id).get(), HttpStatus.OK);
         }
@@ -38,6 +41,7 @@ public class GameServiceImpl implements GameService {
     @Override
     @Transactional
     public ResponseEntity<?> saveGames(GameRequest game) {
+        log.info("Create new game");
         Game newGame = new Game();
         newGame.setGameName(game.getGameName());
         newGame.setRating(game.getRating());
@@ -49,6 +53,7 @@ public class GameServiceImpl implements GameService {
     @Override
     @Transactional
     public void deleteGame(Long id) {
+        log.info("Delete game");
         gameRepo.deleteById(id);
     }
 
@@ -56,6 +61,7 @@ public class GameServiceImpl implements GameService {
     @Override
     @Transactional
     public ResponseEntity<?> putGame(Long id, GameRequest game) {
+        log.info("Replace(put) all game info");
         Game gameFromDB = gameRepo.findById(id).orElseThrow(() -> new GameNotFoundException("Game not found."));
         Optional<GameRequest> gameOptional = Optional.ofNullable(game);
         gameFromDB.setGameName(gameOptional.map(GameRequest::getGameName).orElseThrow(NullPointerException::new));
@@ -68,6 +74,7 @@ public class GameServiceImpl implements GameService {
     @Override
     @Transactional
     public ResponseEntity<?> patchGame(Long id, GameRequest game) {
+        log.info("Replace(patch) some game info");
         Game gameFromDB = gameRepo.findById(id).orElseThrow(() -> new GameNotFoundException("Game not found."));
         Optional<GameRequest> studentOptional = Optional.ofNullable(game);
         if (studentOptional.isPresent()){

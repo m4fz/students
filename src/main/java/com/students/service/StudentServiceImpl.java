@@ -17,10 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class StudentServiceImpl implements StudentService {
     private final StudentRepo studentRepo;
 
@@ -42,6 +41,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> findStudentById(Long id) {
+        log.info("Find student by id");
         if (studentRepo.findById(id).isPresent()){
             return new ResponseEntity<>(studentRepo.findById(id).get(), HttpStatus.OK);
         }
@@ -52,6 +52,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public ResponseEntity<?> save(StudentRequest student) {
+        log.info("Create new student");
         Student newStudent = new Student();
         newStudent.setFirstName(student.getFirstName());
         newStudent.setLastName(student.getLastName());
@@ -64,6 +65,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public void deleteStudent(Long id) {
+        log.info("Delete student");
         studentRepo.deleteById(id);
     }
 
@@ -71,6 +73,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public ResponseEntity<?> putStudent(Long id, StudentRequest student) {
+        log.info("Replace(put) all student info");
         Student studentFromDB = studentRepo.findById(id).orElseThrow(() -> new StudentNotFoundException("Student not found."));
         studentFromDB.setFirstName(student.getFirstName());
         studentFromDB.setLastName(student.getFirstName());
@@ -83,6 +86,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public ResponseEntity<?> patchStudent(Long id, StudentPatchRequest student) {
+        log.info("Replace(patch) some student info");
         Student studentFromDB = studentRepo.findById(id).orElseThrow(() -> new StudentNotFoundException("Student not found."));
         Optional<StudentPatchRequest > studentOptional = Optional.ofNullable(student);
         if (studentOptional.isPresent()){

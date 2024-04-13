@@ -2,6 +2,7 @@ package com.students.controller;
 
 import com.students.exceptions.ErrorDetails;
 import com.students.exceptions.StudentNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -13,7 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
-
+@Slf4j
 @ControllerAdvice
 public class StudentControllerExceptionAdviser extends ResponseEntityExceptionHandler {
     @ExceptionHandler(StudentNotFoundException.class)

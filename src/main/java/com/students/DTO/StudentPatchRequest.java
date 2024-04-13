@@ -1,7 +1,9 @@
 package com.students.DTO;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Data
 @AllArgsConstructor
 //making a DTO object
