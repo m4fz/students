@@ -1,15 +1,12 @@
 package com.students.controller;
 
-import com.students.entity.Student;
-import com.students.entity.StudentRequest;
+import com.students.DTO.StudentPatchRequest;
+import com.students.DTO.StudentRequest;
 import com.students.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -32,19 +29,19 @@ public class StudentController {
 
     //Function to create a new entry
     @PostMapping("/student")
-    public ResponseEntity<?> saveStudent(@RequestBody StudentRequest student){
+    public ResponseEntity<?> saveStudent(@Valid @RequestBody StudentRequest student){
         return studentService.save(student);
     }
 
     //Function to replace an entry entirely
     @PutMapping("/student/{id}")
-    public ResponseEntity<?> putStudent(@PathVariable(name = "id") Long id, @RequestBody StudentRequest student){
+    public ResponseEntity<?> putStudent(@Valid @PathVariable(name = "id") Long id, @RequestBody StudentRequest student){
         return studentService.putStudent(id,student);
     }
 
     //Function to replace any value of an existing entry
     @PatchMapping("/student/{id}")
-    public ResponseEntity<?> patchStudent(@PathVariable(name = "id") Long id, @RequestBody StudentRequest student){
+    public ResponseEntity<?> patchStudent(@Valid @PathVariable(name = "id") Long id, @RequestBody StudentPatchRequest student){
         return studentService.patchStudent(id,student);
     }
 

@@ -5,12 +5,9 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "student")
 // creating a new table with its columns
@@ -24,4 +21,6 @@ public class Student implements Serializable {
     private String lastName;
     private Integer age;
     private String specialty;
+    @OneToOne(mappedBy = "student")
+    private Passport passport;
 }

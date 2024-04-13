@@ -1,13 +1,11 @@
-package com.students.entity;
+package com.students.DTO;
 
 import lombok.*;
 
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 //making a DTO object
-public class StudentRequest {
+public class StudentPatchRequest {
     private String firstName;
     private String lastName;
     private Integer age;
