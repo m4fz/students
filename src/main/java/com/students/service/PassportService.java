@@ -2,12 +2,10 @@ package com.students.service;
 
 import com.students.DTO.PassportPatchRequest;
 import com.students.DTO.PassportRequest;
-import com.students.DTO.StudentPatchRequest;
-import com.students.DTO.StudentRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface PassportService {
-    ResponseEntity<?> getPassports();
+    ResponseEntity<?> getAllPassports();
     ResponseEntity<?> findPassportById(Long id);
 
     ResponseEntity<?> save(PassportRequest request);

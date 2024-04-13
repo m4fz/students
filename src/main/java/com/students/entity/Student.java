@@ -24,4 +24,7 @@ public class Student implements Serializable {
     private String specialty;
     @OneToOne(mappedBy = "student")
     private Passport passport;
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "school_id", referencedColumnName = "id")
+//    private School school;
 }

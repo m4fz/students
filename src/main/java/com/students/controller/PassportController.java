@@ -2,9 +2,6 @@ package com.students.controller;
 
 import com.students.DTO.PassportPatchRequest;
 import com.students.DTO.PassportRequest;
-import com.students.DTO.StudentPatchRequest;
-import com.students.DTO.StudentRequest;
-import com.students.repository.PassportRepo;
 import com.students.service.PassportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +17,7 @@ public class PassportController {
 
     @GetMapping("/passports")
     public ResponseEntity<?> getPassports(){
-        return passportService.getPassports();
+        return passportService.getAllPassports();
     }
 
     @GetMapping("/passport/{id}")

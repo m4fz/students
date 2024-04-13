@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
+
 @Slf4j
 @Entity
 @Table(name = "passport")
@@ -12,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Passport {
+public class Passport implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
