@@ -11,13 +11,13 @@ import java.util.List;
 @Component
 //mapper class that is used to change properties of table entries
 public class PassportMapper {
-    public Passport createPassportEntity(PassportRequest request, Student student){
+    public Passport createPassportEntity(PassportPostRequest request, Student student){
         Passport passport = new Passport();
         passport.setSerialNumber(request.getSerialNumber());
         passport.setStudent(student);
         return passport;
     }
-    public void putPassport(Passport passport, PassportRequest request, Student student){
+    public void putPassport(Passport passport, PassportPostRequest request, Student student){
         passport.setSerialNumber(request.getSerialNumber());
         passport.setStudent(student);
     }

@@ -1,7 +1,7 @@
 package com.students.controller;
 
 import com.students.DTO.PassportPatchRequest;
-import com.students.DTO.PassportRequest;
+import com.students.DTO.PassportPostRequest;
 import com.students.service.PassportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,12 @@ public class PassportController {
     }
     //Function to create a new entry
     @PostMapping("/passport")
-    public ResponseEntity<?> savePassword(@Valid @RequestBody PassportRequest request){
+    public ResponseEntity<?> savePassword(@Valid @RequestBody PassportPostRequest request){
         return passportService.save(request);
     }
     //Function to replace an entry entirely
     @PutMapping("/passport/{id}")
-    public ResponseEntity<?> putPassport(@Valid @PathVariable(name = "id") Long id, @RequestBody PassportRequest passport){
+    public ResponseEntity<?> putPassport(@Valid @PathVariable(name = "id") Long id, @RequestBody PassportPostRequest passport){
         return passportService.putPassport(id,passport);
     }
 

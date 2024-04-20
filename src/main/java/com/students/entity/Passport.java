@@ -23,7 +23,7 @@ public class Passport implements Serializable {
     //making other columns
     @Column(unique = true)
     private String serialNumber;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(orphanRemoval = true,fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
     public void setStudent(Student student){

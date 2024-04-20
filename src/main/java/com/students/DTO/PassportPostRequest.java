@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Data
-public class PassportRequest {
+public class PassportPostRequest {
     @NotBlank(message = "serial is empty")
     private String serialNumber;
     @Size(min = 1)

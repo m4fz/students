@@ -12,5 +12,6 @@ public class StudentPatchRequest {
     private String lastName;
     private Integer age;
     private String specialty;
+    private Long schoolId;
 }
 

@@ -2,8 +2,10 @@ package com.students.service;
 
 import com.students.DTO.StudentPatchRequest;
 import com.students.DTO.StudentResponse;
+import com.students.entity.School;
 import com.students.entity.Student;
-import com.students.DTO.StudentRequest;
+import com.students.DTO.StudentPostRequest;
+import com.students.exceptions.SchoolNotFoundException;
 import com.students.exceptions.StudentNotFoundException;
 import com.students.mapper.StudentMapper;
 import com.students.repository.StudentRepo;
@@ -11,11 +13,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.config.ScheduledTaskHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -24,6 +26,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepo studentRepo; //injecting repo
     private final StudentMapper mapper; //injecting mapper for readability
     private final PassportService passportService; //injecting service(needed because of passport and student join)
+    private final SchoolService schoolService;
 
     // function to get all existing entries
     @Override
@@ -48,9 +51,10 @@ public class StudentServiceImpl implements StudentService {
     // function to create a new entry
     @Override
     @Transactional
-    public ResponseEntity<?> save(StudentRequest request) {
+    public ResponseEntity<?> save(Long id, StudentPostRequest request) {
         log.info("Create new student");
-        Student student = studentRepo.save(mapper.createEntityFromPostRequest(request));
+        School school = schoolService.findSchool(request.getSchoolId()).orElseThrow(() ->new SchoolNotFoundException("school not found"));
+        Student student = studentRepo.save(mapper.createEntityFromPostRequest(request,school));
         StudentResponse response = mapper.createStudentResponse(student);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -68,10 +72,11 @@ public class StudentServiceImpl implements StudentService {
     // function to replace an entry entirely
     @Override
     @Transactional
-    public ResponseEntity<?> putStudent(Long id, StudentRequest request) {
+    public ResponseEntity<?> putStudent(Long id, StudentPostRequest request) {
         log.info("Replace(put) all student info");
         Student studentFromDB = studentRepo.findById(id).orElseThrow(() -> new StudentNotFoundException("Student not found."));
-        mapper.putStudent(studentFromDB, request);
+        School school = schoolService.findSchool(request.getSchoolId()).orElseThrow(() ->new SchoolNotFoundException("school not found"));
+        mapper.putStudent(studentFromDB, request, school);
         return new ResponseEntity<>(studentFromDB, HttpStatus.CREATED);
     }
 
@@ -81,7 +86,8 @@ public class StudentServiceImpl implements StudentService {
     public ResponseEntity<?> patchStudent(Long id, StudentPatchRequest request) {
         log.info("Replace(patch) some student info");
         Student studentFromDB = studentRepo.findById(id).orElseThrow(() -> new StudentNotFoundException("Student not found."));
-        mapper.patchStudent(studentFromDB, request);
+        School school = schoolService.findSchool(request.getSchoolId()).orElseThrow(() ->new SchoolNotFoundException("school not found"));
+        mapper.patchStudent(studentFromDB, request, school);
         return new ResponseEntity<>(studentFromDB, HttpStatus.CREATED);
     }
 

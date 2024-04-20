@@ -5,6 +5,9 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Data
 @AllArgsConstructor
@@ -23,9 +26,15 @@ public class Student implements Serializable {
     private String lastName;
     private Integer age;
     private String specialty;
-    @OneToOne(mappedBy = "student")
+    @OneToOne(mappedBy = "student", cascade = CascadeType.REMOVE)
     private Passport passport;
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "school_id", referencedColumnName = "id")
-//    private School school;
+
+    @ManyToOne()
+    @JoinColumn(name = "school_id")
+    private School school;
+
+    public void setSchool(School school){
+        this.school = school;
+        school.setStudents(new ArrayList<>(List.of(this)));
+    }
 }

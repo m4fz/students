@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -50,7 +50,7 @@ public class PassportServiceImpl implements PassportService{
     // function to create a new entry
     @Override
     @Transactional
-    public ResponseEntity<?> save(PassportRequest request) {
+    public ResponseEntity<?> save(PassportPostRequest request) {
         log.info("Create new passport");
         Student student = studentRepo.findById(request.getStudentId()).orElseThrow(()-> new StudentNotFoundException(String.format("Student with id = %S not found", request.getStudentId())));
         Passport passport = passportRepo.save(mapper.createPassportEntity(request, student));
@@ -66,7 +66,7 @@ public class PassportServiceImpl implements PassportService{
     // function to replace an entry entirely
     @Override
     @Transactional
-    public ResponseEntity<?> putPassport(Long id, PassportRequest request) {
+    public ResponseEntity<?> putPassport(Long id, PassportPostRequest request) {
         log.info("Replace(put) all passport info");
         Passport passportFromDB = passportRepo.findById(id).orElseThrow(() -> new PassportNotFoundException("Passport not found."));
         Student student = findStudentById(request.getStudentId());

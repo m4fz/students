@@ -1,7 +1,7 @@
 package com.students.controller;
 
 import com.students.DTO.StudentPatchRequest;
-import com.students.DTO.StudentRequest;
+import com.students.DTO.StudentPostRequest;
 import com.students.service.StudentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +30,13 @@ public class StudentController {
 
     //Function to create a new entry
     @PostMapping("/student")
-    public ResponseEntity<?> saveStudent(@Valid @RequestBody StudentRequest student){
+    public ResponseEntity<?> saveStudent(@Valid @RequestBody StudentPostRequest student){
         return studentService.save(student);
     }
 
     //Function to replace an entry entirely
     @PutMapping("/student/{id}")
-    public ResponseEntity<?> putStudent(@Valid @PathVariable(name = "id") Long id, @RequestBody StudentRequest student){
+    public ResponseEntity<?> putStudent(@Valid @PathVariable(name = "id") Long id, @RequestBody StudentPostRequest student){
         return studentService.putStudent(id,student);
     }
 

@@ -18,5 +18,6 @@ public class StudentResponse {
     private Integer age;
     private String specialty;
     private Long passportId;
+    private Long schoolId;
 
 }
