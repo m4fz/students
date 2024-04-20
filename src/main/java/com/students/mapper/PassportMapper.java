@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+//mapper class that is used to change properties of table entries
 public class PassportMapper {
     public Passport createPassportEntity(PassportRequest request, Student student){
         Passport passport = new Passport();

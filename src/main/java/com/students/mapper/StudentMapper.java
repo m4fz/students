@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+//mapper class that is used to change properties of table entries
 public class StudentMapper {
     public Student createEntityFromPostRequest(StudentRequest request){
         Student student = new Student();

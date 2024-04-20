@@ -14,10 +14,13 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+// creating a new table with its columns
 public class Passport implements Serializable {
+    //specifying the id and making it a primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //making other columns
     @Column(unique = true)
     private String serialNumber;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)

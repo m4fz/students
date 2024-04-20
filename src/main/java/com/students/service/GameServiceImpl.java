@@ -16,6 +16,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
+    //TODO make a mapper and replace functions with it
     private final GameRepo gameRepo;
 
     // function to get all existing entries

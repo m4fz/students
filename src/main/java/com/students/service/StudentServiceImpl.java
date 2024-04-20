@@ -21,9 +21,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepo studentRepo;
-    private final StudentMapper mapper;
-    private final PassportService passportService;
+    private final StudentRepo studentRepo; //injecting repo
+    private final StudentMapper mapper; //injecting mapper for readability
+    private final PassportService passportService; //injecting service(needed because of passport and student join)
 
     // function to get all existing entries
     @Override

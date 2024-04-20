@@ -21,9 +21,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class PassportServiceImpl implements PassportService{
-    private final PassportRepo passportRepo;
-    private final StudentRepo studentRepo;
-    private final PassportMapper mapper;
+    private final PassportRepo passportRepo; //injecting passports repo
+    private final StudentRepo studentRepo; //injecting students repo
+    private final PassportMapper mapper; //injecting mapper for readability
+    // function to get all existing entries
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> getAllPassports() {
@@ -31,6 +32,7 @@ public class PassportServiceImpl implements PassportService{
         List<Passport> passports =passportRepo.findAll();
         return new ResponseEntity<>(mapper.createPassportResponseList(passports), HttpStatus.OK);
     }
+    // function to get an existing passport entry by its id
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> findPassportById(Long id) {
@@ -40,12 +42,12 @@ public class PassportServiceImpl implements PassportService{
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
+    // function to get an existing student entry by its id
     private Student findStudentById(Long id) {
         log.info("Find Student by id");
         return studentRepo.findById(id).orElseThrow(() -> new StudentNotFoundException(String.format("Student with id = %S not found", id)));
     }
-
+    // function to create a new entry
     @Override
     @Transactional
     public ResponseEntity<?> save(PassportRequest request) {
@@ -54,14 +56,14 @@ public class PassportServiceImpl implements PassportService{
         Passport passport = passportRepo.save(mapper.createPassportEntity(request, student));
         return new ResponseEntity<>(mapper.createPassportResponse(passport), HttpStatus.CREATED);
     }
-
+    // function to delete the entire existing entry by id
     @Override
     @Transactional
     public void deletePassport(Long id) {
         log.info("Delete passport");
         passportRepo.deleteById(id);
     }
-
+    // function to replace an entry entirely
     @Override
     @Transactional
     public ResponseEntity<?> putPassport(Long id, PassportRequest request) {
@@ -71,7 +73,7 @@ public class PassportServiceImpl implements PassportService{
         mapper.putPassport(passportFromDB, request, student);
         return new ResponseEntity<>(mapper.createPassportResponse(passportFromDB), HttpStatus.CREATED);
     }
-
+    // function to replace any value of an existing entry
     @Override
     @Transactional
     public ResponseEntity<?> patchPassport(Long id, PassportPatchRequest request) {

@@ -21,6 +21,7 @@ public class Game implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+    //making other columns
     private String gameName;
     private Integer rating;
     private Integer price;
