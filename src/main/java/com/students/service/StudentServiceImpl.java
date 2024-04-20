@@ -51,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
     // function to create a new entry
     @Override
     @Transactional
-    public ResponseEntity<?> save(Long id, StudentPostRequest request) {
+    public ResponseEntity<?> save(StudentPostRequest request) {
         log.info("Create new student");
         School school = schoolService.findSchool(request.getSchoolId()).orElseThrow(() ->new SchoolNotFoundException("school not found"));
         Student student = studentRepo.save(mapper.createEntityFromPostRequest(request,school));
