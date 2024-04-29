@@ -1,15 +1,19 @@
 package com.students.DTO;
 
+import com.students.entity.Student;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SchoolRequest {
+public class SubjectRequest {
     @NotEmpty
     private String name;
+    @Nullable
+    private List<Long> students;
 }

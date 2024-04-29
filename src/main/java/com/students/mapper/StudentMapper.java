@@ -1,6 +1,5 @@
 package com.students.mapper;
 
-import com.students.DTO.SchoolRequest;
 import com.students.DTO.StudentPatchRequest;
 import com.students.DTO.StudentPostRequest;
 import com.students.DTO.StudentResponse;
@@ -8,14 +7,14 @@ import com.students.entity.School;
 import com.students.entity.Student;
 import org.springframework.stereotype.Component;
 
-import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
 //mapper class that is used to change properties of table entries
 public class StudentMapper {
-    public Student createEntityFromPostRequest(StudentPostRequest request, School school){
+    public Student toEntity(StudentPostRequest request, School school){
         Student student = new Student();
         student.setFirstName(request.getFirstName());
         student.setLastName(request.getLastName());
@@ -39,7 +38,8 @@ public class StudentMapper {
         if(school != null) student.setSchool(school);
     }
 
-    public StudentResponse createStudentResponse(Student student){
+    public StudentResponse toResponse(Student student){
+        if (student == null) return new StudentResponse();
         StudentResponse response = new StudentResponse();
         response.setId(student.getId());
         response.setFirstName(student.getFirstName());
@@ -51,9 +51,10 @@ public class StudentMapper {
         return response;
     }
 
-    public List<StudentResponse> createStudentResponseList(List<Student> students){
+    public List<StudentResponse> toResponseList(List<Student> students){
+        if (students.isEmpty()) return Collections.emptyList();
         List<StudentResponse> responses = new ArrayList<>();
-        students.forEach(student -> {responses.add(createStudentResponse(student));
+        students.forEach(student -> {responses.add(toResponse(student));
         });
         return responses;
     }

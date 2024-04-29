@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 //mapper class that is used to change properties of table entries
 public class PassportMapper {
-    public Passport createPassportEntity(PassportPostRequest request, Student student){
+    public Passport toEntity(PassportPostRequest request, Student student){
         Passport passport = new Passport();
         passport.setSerialNumber(request.getSerialNumber());
         passport.setStudent(student);
@@ -25,7 +25,7 @@ public class PassportMapper {
         if(request.getSerialNumber()!= null) passport.setSerialNumber(request.getSerialNumber());
         if(request.getStudentId()!= null) passport.setStudent(student);
     }
-    public PassportResponse createPassportResponse(Passport passport){
+    public PassportResponse toResponse(Passport passport){
         PassportResponse response = new PassportResponse();
         response.setId((passport.getId()));
         response.setSerialNumber(passport.getSerialNumber());
@@ -33,9 +33,9 @@ public class PassportMapper {
         return response;
     }
 
-    public List<PassportResponse> createPassportResponseList(List<Passport> passports){
+    public List<PassportResponse> toResponseList(List<Passport> passports){
         List<PassportResponse> responses = new ArrayList<>();
-        passports.forEach(passport -> {responses.add(createPassportResponse(passport));
+        passports.forEach(passport -> {responses.add(toResponse(passport));
         });
         return responses;
     }

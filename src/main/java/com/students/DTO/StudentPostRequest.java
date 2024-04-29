@@ -8,7 +8,9 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 //making a DTO object
 public class StudentPostRequest {
@@ -26,7 +28,6 @@ public class StudentPostRequest {
     @NotBlank(message = "specialty is empty")
     private String specialty;
 
-    @NotBlank(message = "school id not empty")
     private Long schoolId;
 }
 

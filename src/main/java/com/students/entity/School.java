@@ -23,9 +23,8 @@ public class School implements Serializable {
     private String name;
     @OneToMany(mappedBy = "school")
     private List<Student> studentList = new ArrayList<>();
-
-    public void setStudents(List<Student> students){
-        this.studentList = students;
-        students.forEach(student -> student.setSchool(this));
-    }
+//    public void setStudents(List<Student> students){
+//        this.studentList = students;
+//        students.forEach(student -> student.setSchool(this));
+//    }
 }

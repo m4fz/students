@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.config.ScheduledTaskHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
     public ResponseEntity<?> getAllStudents() {
         log.info("Get all students");
         List<Student> studentsFromDB = studentRepo.findAll();
-        return new ResponseEntity<>(mapper.createStudentResponseList(studentsFromDB), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toResponseList(studentsFromDB), HttpStatus.OK);
     }
 
     // function to get an existing entry by its id
@@ -43,7 +42,7 @@ public class StudentServiceImpl implements StudentService {
     public ResponseEntity<?> findStudentById(Long id) {
         log.info("Find student by id");
         if (studentRepo.findById(id).isPresent()){
-            return new ResponseEntity<>(mapper.createStudentResponse(studentRepo.findById(id).get()), HttpStatus.OK);
+            return new ResponseEntity<>(mapper.toResponse(studentRepo.findById(id).get()), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -54,8 +53,8 @@ public class StudentServiceImpl implements StudentService {
     public ResponseEntity<?> save(StudentPostRequest request) {
         log.info("Create new student");
         School school = schoolService.findSchool(request.getSchoolId()).orElseThrow(() ->new SchoolNotFoundException("school not found"));
-        Student student = studentRepo.save(mapper.createEntityFromPostRequest(request,school));
-        StudentResponse response = mapper.createStudentResponse(student);
+        Student student = studentRepo.save(mapper.toEntity(request,school));
+        StudentResponse response = mapper.toResponse(student);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

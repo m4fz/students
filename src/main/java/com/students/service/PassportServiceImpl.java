@@ -30,7 +30,7 @@ public class PassportServiceImpl implements PassportService{
     public ResponseEntity<?> getAllPassports() {
         log.info("Get all passports");
         List<Passport> passports =passportRepo.findAll();
-        return new ResponseEntity<>(mapper.createPassportResponseList(passports), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toResponseList(passports), HttpStatus.OK);
     }
     // function to get an existing passport entry by its id
     @Override
@@ -38,7 +38,7 @@ public class PassportServiceImpl implements PassportService{
     public ResponseEntity<?> findPassportById(Long id) {
         log.info("Find Passport by id");
         if (passportRepo.findById(id).isPresent()){
-            return new ResponseEntity<>(mapper.createPassportResponse(passportRepo.findById(id).get()), HttpStatus.OK);
+            return new ResponseEntity<>(mapper.toResponse(passportRepo.findById(id).get()), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -53,8 +53,8 @@ public class PassportServiceImpl implements PassportService{
     public ResponseEntity<?> save(PassportPostRequest request) {
         log.info("Create new passport");
         Student student = studentRepo.findById(request.getStudentId()).orElseThrow(()-> new StudentNotFoundException(String.format("Student with id = %S not found", request.getStudentId())));
-        Passport passport = passportRepo.save(mapper.createPassportEntity(request, student));
-        return new ResponseEntity<>(mapper.createPassportResponse(passport), HttpStatus.CREATED);
+        Passport passport = passportRepo.save(mapper.toEntity(request, student));
+        return new ResponseEntity<>(mapper.toResponse(passport), HttpStatus.CREATED);
     }
     // function to delete the entire existing entry by id
     @Override
@@ -71,7 +71,7 @@ public class PassportServiceImpl implements PassportService{
         Passport passportFromDB = passportRepo.findById(id).orElseThrow(() -> new PassportNotFoundException("Passport not found."));
         Student student = findStudentById(request.getStudentId());
         mapper.putPassport(passportFromDB, request, student);
-        return new ResponseEntity<>(mapper.createPassportResponse(passportFromDB), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toResponse(passportFromDB), HttpStatus.CREATED);
     }
     // function to replace any value of an existing entry
     @Override
@@ -81,6 +81,6 @@ public class PassportServiceImpl implements PassportService{
         Passport passportFromDB = passportRepo.findById(id).orElseThrow(() -> new PassportNotFoundException("Passport not found."));
         Student student = findStudentById(request.getStudentId());
         mapper.patchPassport(passportFromDB, request, student);
-        return new ResponseEntity<>(mapper.createPassportResponse(passportFromDB), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toResponse(passportFromDB), HttpStatus.CREATED);
     }
 }

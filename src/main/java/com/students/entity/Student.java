@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -33,8 +34,11 @@ public class Student implements Serializable {
     @JoinColumn(name = "school_id")
     private School school;
 
-    public void setSchool(School school){
-        this.school = school;
-        school.setStudents(new ArrayList<>(List.of(this)));
-    }
+    @ManyToMany(mappedBy = "students")
+    private List<Subject> subjects;
+
+//    public void setSchool(School school){
+//        this.school = school;
+//        school.setStudents(new ArrayList<>(List.of(this)));
+//    }
 }

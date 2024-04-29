@@ -4,7 +4,9 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 //making a DTO object
 public class StudentPatchRequest {

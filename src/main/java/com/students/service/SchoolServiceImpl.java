@@ -1,9 +1,7 @@
 package com.students.service;
 
 import com.students.DTO.*;
-import com.students.entity.Passport;
 import com.students.entity.School;
-import com.students.exceptions.PassportNotFoundException;
 import com.students.exceptions.SchoolNotFoundException;
 import com.students.mapper.SchoolMapper;
 import com.students.repository.SchoolRepo;
@@ -15,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 @Slf4j
 @Service
@@ -28,23 +25,23 @@ public class SchoolServiceImpl implements SchoolService{
     @Transactional(readOnly = true)
     public ResponseEntity<?> getAllSchools() {
         log.info("Get all schools");
-        return new ResponseEntity<>(mapper.schoolResponseList(schoolRepo.findAll()), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.toResponseList(schoolRepo.findAll()), HttpStatus.OK);
     }
     @Override
     @Transactional(readOnly = true)
     public ResponseEntity<?> findSchoolById(Long id) {
         log.info("Find school by id");
         if (findSchool(id).isPresent()){
-            return new ResponseEntity<>(mapper.createSchoolResponse(schoolRepo.findById(id).get()), HttpStatus.OK);
+            return new ResponseEntity<>(mapper.toResponse(schoolRepo.findById(id).get()), HttpStatus.OK);
         }
-        return new ResponseEntity<>(mapper.createSchoolResponse(schoolRepo.findById(id).get()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(mapper.toResponse(schoolRepo.findById(id).get()), HttpStatus.NOT_FOUND);
     }
 
     @Override
     @Transactional
     public ResponseEntity<?> save(SchoolRequest request) {
         log.info("Create new school");
-        return new ResponseEntity<>(schoolRepo.save(mapper.createSchoolEntity(request)), HttpStatus.OK);
+        return new ResponseEntity<>(schoolRepo.save(mapper.toEntity(request)), HttpStatus.OK);
     }
 
     @Override
@@ -60,7 +57,7 @@ public class SchoolServiceImpl implements SchoolService{
         log.info("Replace(put) all passport info");
         School schoolFromDB = findSchool(id).orElseThrow(() ->new SchoolNotFoundException("school not found"));
         mapper.putSchool(schoolFromDB,request);
-        return new ResponseEntity<>(mapper.createSchoolResponse(schoolFromDB), HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.toResponse(schoolFromDB), HttpStatus.CREATED);
     }
 
     public Optional<School> findSchool(Long id){
