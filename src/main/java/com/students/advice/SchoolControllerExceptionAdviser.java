@@ -1,7 +1,7 @@
-package com.students.controller;
+package com.students.advice;
 
 import com.students.exceptions.ErrorDetails;
-import com.students.exceptions.PassportNotFoundException;
+import com.students.exceptions.SchoolNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,12 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
+
 @Slf4j
 @ControllerAdvice
-public class PassportControllerExceptionAdviser extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(PassportNotFoundException.class)
-    public ResponseEntity<?> passportNotFound(PassportNotFoundException e, WebRequest webRequest){
+public class SchoolControllerExceptionAdviser extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(SchoolNotFoundException.class)
+    public ResponseEntity<?> schoolNotFound(SchoolNotFoundException e, WebRequest webRequest){
         ErrorDetails errorDetails = new ErrorDetails(new Date(), e.getMessage(),webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
@@ -35,3 +36,4 @@ public class PassportControllerExceptionAdviser extends ResponseEntityExceptionH
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
+

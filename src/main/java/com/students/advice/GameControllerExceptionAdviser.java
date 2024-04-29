@@ -1,4 +1,4 @@
-package com.students.controller;
+package com.students.advice;
 
 import com.students.exceptions.ErrorDetails;
 import com.students.exceptions.GameNotFoundException;

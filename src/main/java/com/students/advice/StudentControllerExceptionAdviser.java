@@ -1,7 +1,7 @@
-package com.students.controller;
+package com.students.advice;
 
 import com.students.exceptions.ErrorDetails;
-import com.students.exceptions.SchoolNotFoundException;
+import com.students.exceptions.StudentNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,12 +14,11 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
-
 @Slf4j
 @ControllerAdvice
-public class SchoolControllerExceptionAdviser extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(SchoolNotFoundException.class)
-    public ResponseEntity<?> schoolNotFound(SchoolNotFoundException e, WebRequest webRequest){
+public class StudentControllerExceptionAdviser extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<?> studentNotFound(StudentNotFoundException e, WebRequest webRequest){
         ErrorDetails errorDetails = new ErrorDetails(new Date(), e.getMessage(),webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
@@ -36,4 +35,3 @@ public class SchoolControllerExceptionAdviser extends ResponseEntityExceptionHan
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
-
