@@ -1,5 +1,6 @@
 package com.students.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,7 @@ public class Student implements Serializable {
     @OneToOne(mappedBy = "student", cascade = CascadeType.REMOVE)
     private Passport passport;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "school_id")
     private School school;

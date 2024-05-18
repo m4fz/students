@@ -21,7 +21,8 @@ public class School implements Serializable {
     @Column(name = "id")
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "school")
+
+    @OneToMany(mappedBy = "school", fetch = FetchType.LAZY)
     private List<Student> studentList = new ArrayList<>();
 //    public void setStudents(List<Student> students){
 //        this.studentList = students;

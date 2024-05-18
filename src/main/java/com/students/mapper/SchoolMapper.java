@@ -3,13 +3,15 @@ package com.students.mapper;
 import com.students.DTO.SchoolRequest;
 import com.students.DTO.SchoolResponse;
 import com.students.entity.School;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class SchoolMapper {
-    private StudentMapper stMapper;
+    private final StudentMapper stMapper;
 
     public SchoolResponse toResponse(School school){
         return new SchoolResponse(school.getId(),school.getName(),stMapper.toResponseList(school.getStudentList()));

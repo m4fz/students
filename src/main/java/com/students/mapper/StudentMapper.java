@@ -5,11 +5,13 @@ import com.students.DTO.StudentPostRequest;
 import com.students.DTO.StudentResponse;
 import com.students.entity.School;
 import com.students.entity.Student;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 
 @Component
 //mapper class that is used to change properties of table entries
