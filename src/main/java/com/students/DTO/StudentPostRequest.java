@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 //making a DTO object
 public class StudentPostRequest {
     @NotBlank(message = "firstName is empty")
