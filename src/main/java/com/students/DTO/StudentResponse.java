@@ -1,9 +1,6 @@
 package com.students.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -11,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
+@Builder
 public class StudentResponse {
     private Long id;
     private String firstName;
